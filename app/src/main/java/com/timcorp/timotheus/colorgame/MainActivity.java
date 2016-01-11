@@ -20,19 +20,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Field field = new Field();
-        GridLayout gridLayout = (GridLayout)findViewById(R.id.gridTable);
-        field.gridLayout = gridLayout;
-        field.mainActivity = this;
-        field.init(this);
+        GridLayout gridLayout = (GridLayout) findViewById(R.id.gridTable);
+        UI.gridLayout = gridLayout;
+        UI.mainActivity = this;
+        UI.init(this);
 
         TextView tv = (TextView)findViewById(R.id.best);
         tv.setText("Best: " + GlobalValues.best);
     }
 
     public void colorClick(View view) {
-        Field.UpdateColor(view);
+        UI.UpdateColor(view);
     }
-
-
 }
