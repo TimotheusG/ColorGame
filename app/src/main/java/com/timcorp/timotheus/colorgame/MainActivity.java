@@ -20,8 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Field field = new Field();
         GridLayout gridLayout = (GridLayout) findViewById(R.id.gridTable);
         UI.gridLayout = gridLayout;
         UI.mainActivity = this;

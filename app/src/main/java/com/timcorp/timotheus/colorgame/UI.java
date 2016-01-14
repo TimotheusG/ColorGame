@@ -19,32 +19,29 @@ import java.util.Random;
 public class UI {
     public static MainActivity mainActivity;
     public static GridLayout gridLayout;
-
+    public static Field field = new Field();
     public static void UpdateColor(View view) {
         GlobalValues.moves++;
         TextView tv = (TextView)mainActivity.findViewById(R.id.moves);
         tv.setText("Moves: " + GlobalValues.moves);
-        for (Tile t : Field.tiles) {
-            if (t.selected) {
-                t.changeColor(GlobalValues.Colors.selected);
-                switch (view.getId()) {
-                    case R.id.Red:
-                        Field.evalNeighbors(t, GlobalValues.Colors.red);
-                        break;
-                    case R.id.Green:
-                        Field.evalNeighbors(t, GlobalValues.Colors.green);
-                        break;
-                    case R.id.Blue:
-                        Field.evalNeighbors(t, GlobalValues.Colors.blue);
-                        break;
-                }
+        for (Tile t : field.getSelectedList()) {
+            switch (view.getId()) {
+                case R.id.Red:
+                    Field.evalNeighbors(t, GlobalValues.Colors.red);
+                    break;
+                case R.id.Green:
+                    Field.evalNeighbors(t, GlobalValues.Colors.green);
+                    break;
+                case R.id.Blue:
+                    Field.evalNeighbors(t, GlobalValues.Colors.blue);
+                    break;
             }
         }
-//        for (Tile a : Field.tiles) {
-//            if (a.selected)
-//                Log.d("MyApp", a.toString());
-//        }
-//        Log.d("MyApp", "End");
+        //update all new selected
+        for (Tile t : field.getSelectedList()) {
+            t.changeColor(GlobalValues.Colors.selected);
+            t.image.setImageResource(Utilities.getImageColor(GlobalValues.Colors.selected));
+        }
         if(Utilities.won(Field.tiles)) {
             Toast.makeText(mainActivity, "You won in " + GlobalValues.moves + " moves!",
                     Toast.LENGTH_SHORT).show();
@@ -57,37 +54,30 @@ public class UI {
 
     public static void init(Activity th) {
         gridLayout.removeAllViews();
-        List<Tile> tiles = Field.tiles;
+
+        field.init();
         int total = GlobalValues.total;
         int column = GlobalValues.column;
         int row = total / column;
         gridLayout.setColumnCount(column);
         gridLayout.setRowCount(row + 1);
-        for(int i =0, c = 0, r = 0; i < total; i++, c++)
+        for (Tile t : field.tiles)
         {
-            if(c == column)
-            {
-                c = 0;
-                r++;
-            }
-            Tile t = new Tile(c, r);
             ImageView oImageView = new ImageView(th);
-            Random rand = new Random();
-            int rand3 = rand.nextInt(GlobalValues.numberOfColors) + 1;
             //GlobalValues.Colors randColor = GlobalValues.Colors.values()[rand3];
-            switch (rand3)
+            switch (t.color)
             {
-                case 1:
-                    t.color = GlobalValues.Colors.red;
+                case red:
                     oImageView.setImageResource(R.drawable.red);
                     break;
-                case 2:
-                    t.color = GlobalValues.Colors.green;
+                case green:
                     oImageView.setImageResource(R.drawable.green);
                     break;
-                case 3:
-                    t.color = GlobalValues.Colors.blue;
+                case blue:
                     oImageView.setImageResource(R.drawable.blue);
+                    break;
+                case selected:
+                    oImageView.setImageResource(R.drawable.selected);
                     break;
                 default:
                     break;
@@ -99,15 +89,12 @@ public class UI {
             //param.rightMargin = 5;
             //param.topMargin = 5;
             param.setGravity(Gravity.CENTER);
-            param.columnSpec = GridLayout.spec(c);
-            param.rowSpec = GridLayout.spec(r);
+            param.columnSpec = GridLayout.spec(t.x);
+            param.rowSpec = GridLayout.spec(t.y);
             oImageView.setLayoutParams(param);
             gridLayout.addView(oImageView);
             t.image = oImageView;
-            tiles.add(t);
         }
-        for(Tile t : Field.tiles)
-            Log.d("MyApp", t.toString());
 
         //set first tile and all same color tiles to selected
         for (Tile t : Field.tiles) {

@@ -24,7 +24,6 @@ public class Tile {
     public void changeColor(GlobalValues.Colors color)
     {
         this.color = color;
-        this.image.setImageResource(Utilities.getImageColor(color));
     }
     @Override
     public String toString()

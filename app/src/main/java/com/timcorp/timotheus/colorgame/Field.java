@@ -19,6 +19,42 @@ import java.util.Random;
 public class Field {
     public static List<Tile> tiles = new ArrayList<Tile>();
 
+    public static void init() {
+        List<Tile> tiles = Field.tiles;
+        int total = GlobalValues.total;
+        int column = GlobalValues.column;
+        int row = total / column;
+        for (int i = 0, c = 0, r = 0; i < total; i++, c++) {
+            if (c == column) {
+                c = 0;
+                r++;
+            }
+            Tile t = new Tile(c, r);
+            Random rand = new Random();
+            int rand3 = rand.nextInt(GlobalValues.numberOfColors) + 1;
+            //GlobalValues.Colors randColor = GlobalValues.Colors.values()[rand3];
+            switch (rand3) {
+                case 1:
+                    t.color = GlobalValues.Colors.red;
+                    break;
+                case 2:
+                    t.color = GlobalValues.Colors.green;
+                    break;
+                case 3:
+                    t.color = GlobalValues.Colors.blue;
+                    break;
+                default:
+                    break;
+            }
+            tiles.add(t);
+        }
+        //set first tile and all same color tiles to selected
+        for (Tile t : Field.tiles) {
+            if (t.selected) {
+                Field.evalTile(t, t.color);
+            }
+        }
+    }
 
     public static void evalNeighbors(Tile tile, GlobalValues.Colors color) {
         //North
@@ -57,8 +93,27 @@ public class Field {
             tile.selected = true;
             tile.changeColor(GlobalValues.Colors.selected);
             evalNeighbors(tile, color);
-
         }
+    }
+
+    public String ToString() //change to real string later
+    {
+        String s = new String();
+        for (Tile t : Field.tiles) {
+            s += t.color.toString().substring(0, 1) + " ";
+            if (t.x == GlobalValues.column - 1)
+                s += "\n";
+        }
+        return s;
+    }
+
+    public List<Tile> getSelectedList() {
+        ArrayList<Tile> l = new ArrayList<Tile>();
+        for (Tile t : Field.tiles) {
+            if (t.selected)
+                l.add(t);
+        }
+        return l;
     }
 
 
