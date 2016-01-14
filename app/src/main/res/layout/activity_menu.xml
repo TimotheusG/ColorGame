@@ -17,4 +17,13 @@
         android:onClick="difClick"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_above="@+id/Easy"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="67dp"
+        android:spinnerMode="dropdown" />
 </RelativeLayout>

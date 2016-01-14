@@ -2,9 +2,12 @@ package com.timcorp.timotheus.colorgame;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ import java.util.Random;
 public class UI {
     public static MainActivity mainActivity;
     public static GridLayout gridLayout;
+    public static GridLayout buttonsLayout;
     public static Field field = new Field();
     public static void UpdateColor(View view) {
         GlobalValues.moves++;
@@ -26,14 +30,23 @@ public class UI {
         tv.setText("Moves: " + GlobalValues.moves);
         for (Tile t : field.getSelectedList()) {
             switch (view.getId()) {
-                case R.id.Red:
+                case 0:
                     Field.evalNeighbors(t, GlobalValues.Colors.red);
                     break;
-                case R.id.Green:
+                case 1:
                     Field.evalNeighbors(t, GlobalValues.Colors.green);
                     break;
-                case R.id.Blue:
+                case 2:
                     Field.evalNeighbors(t, GlobalValues.Colors.blue);
+                    break;
+                case 3:
+                    Field.evalNeighbors(t, GlobalValues.Colors.yellow);
+                    break;
+                case 4:
+                    Field.evalNeighbors(t, GlobalValues.Colors.purple);
+                    break;
+                case 5:
+                    Field.evalNeighbors(t, GlobalValues.Colors.cyan);
                     break;
             }
         }
@@ -54,8 +67,8 @@ public class UI {
 
     public static void init(Activity th) {
         gridLayout.removeAllViews();
-
         field.init();
+        setButtons();
         int total = GlobalValues.total;
         int column = GlobalValues.column;
         int row = total / column;
@@ -75,6 +88,15 @@ public class UI {
                     break;
                 case blue:
                     oImageView.setImageResource(R.drawable.blue);
+                    break;
+                case yellow:
+                    oImageView.setImageResource(R.drawable.yellow);
+                    break;
+                case purple:
+                    oImageView.setImageResource(R.drawable.purple);
+                    break;
+                case cyan:
+                    oImageView.setImageResource(R.drawable.cyan);
                     break;
                 case selected:
                     oImageView.setImageResource(R.drawable.selected);
@@ -101,6 +123,48 @@ public class UI {
             if (t.selected) {
                 Field.evalTile(t, t.color);
             }
+        }
+    }
+
+    private static void setButtons() {
+        for (int i = 0; i < GlobalValues.numberOfColors; i++) {
+            Button b = new Button(mainActivity);
+            ImageView IV = new ImageView(mainActivity);
+            switch (i) {
+                case 0:
+                    IV.setImageResource(R.drawable.red);
+                    b.setId(i);
+                    break;
+                case 1:
+                    IV.setImageResource(R.drawable.green);
+                    b.setId(i);
+                    break;
+                case 2:
+                    IV.setImageResource(R.drawable.blue);
+                    b.setId(i);
+                    break;
+                case 3:
+                    IV.setImageResource(R.drawable.yellow);
+                    b.setId(i);
+                    break;
+                case 4:
+                    IV.setImageResource(R.drawable.purple);
+                    b.setId(i);
+                    break;
+                case 5:
+                    IV.setImageResource(R.drawable.cyan);
+                    b.setId(i);
+                    break;
+                default:
+                    break;
+            }
+            b.setBackgroundDrawable(IV.getDrawable());
+            b.setOnClickListener(new Button.OnClickListener() {
+                public void onClick(View view) {
+                    UI.UpdateColor(view);
+                }
+            });
+            buttonsLayout.addView(b);
         }
     }
 }

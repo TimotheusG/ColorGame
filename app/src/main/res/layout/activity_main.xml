@@ -54,46 +54,12 @@
             android:layout_weight="1.00"
             android:id="@+id/gridTable"></GridLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
+        <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="156dp"
-            android:layout_weight="0.08"
-            android:weightSum="1">
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="69dp"
-                android:id="@+id/Red"
-                android:onClick="colorClick"
-                android:background="#ff0000"
-                android:layout_alignParentBottom="true"
-                android:layout_toLeftOf="@+id/Green"
-                android:layout_toStartOf="@+id/Green"
-                android:layout_weight="0.29" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="69dp"
-                android:id="@+id/Green"
-                android:onClick="colorClick"
-                android:background="#00ff00"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_weight="0.29" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="69dp"
-                android:id="@+id/Blue"
-                android:onClick="colorClick"
-                android:background="#0000ff"
-                android:layout_alignParentBottom="true"
-                android:layout_toRightOf="@+id/Green"
-                android:layout_toEndOf="@+id/Green"
-                android:layout_weight="0.29" />
-
-        </LinearLayout>
+            android:layout_height="182dp"
+            android:rowCount="2"
+            android:columnCount="3"
+            android:id="@+id/buttonsLayout"></GridLayout>
 
     </LinearLayout>
 

@@ -20,9 +20,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        GlobalValues.numberOfColors = Integer.parseInt(getIntent().getStringExtra("NUM_COLORS"));
         GridLayout gridLayout = (GridLayout) findViewById(R.id.gridTable);
+        GridLayout buttonsLayout = (GridLayout) findViewById(R.id.buttonsLayout);
         UI.gridLayout = gridLayout;
         UI.mainActivity = this;
+        UI.buttonsLayout = buttonsLayout;
         UI.init(this);
 
         TextView tv = (TextView)findViewById(R.id.best);

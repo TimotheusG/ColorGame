@@ -43,6 +43,15 @@ public class Field {
                 case 3:
                     t.color = GlobalValues.Colors.blue;
                     break;
+                case 4:
+                    t.color = GlobalValues.Colors.yellow;
+                    break;
+                case 5:
+                    t.color = GlobalValues.Colors.purple;
+                    break;
+                case 6:
+                    t.color = GlobalValues.Colors.cyan;
+                    break;
                 default:
                     break;
             }
