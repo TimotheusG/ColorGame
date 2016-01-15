@@ -65,6 +65,53 @@ public class Field {
         }
     }
 
+    public static void init(String layout) {
+        List<Tile> tiles = Field.tiles;
+        int total = GlobalValues.total;
+        int column = GlobalValues.column;
+        int row = total / column;
+        layout = layout.replaceAll("\\s", "");
+        int c = 0;
+        int r = 0;
+        for (char ch : layout.toCharArray()) {
+            if (c == column) {
+                c = 0;
+                r++;
+            }
+            Tile t = new Tile(c, r);
+            switch (ch) {
+                case 'r':
+                    t.color = GlobalValues.Colors.red;
+                    break;
+                case 'g':
+                    t.color = GlobalValues.Colors.green;
+                    break;
+                case 'b':
+                    t.color = GlobalValues.Colors.blue;
+                    break;
+                case 'y':
+                    t.color = GlobalValues.Colors.yellow;
+                    break;
+                case 'p':
+                    t.color = GlobalValues.Colors.purple;
+                    break;
+                case 'c':
+                    t.color = GlobalValues.Colors.cyan;
+                    break;
+                default:
+                    break;
+            }
+            tiles.add(t);
+            c++;
+        }
+        //set first tile and all same color tiles to selected
+        for (Tile t : Field.tiles) {
+            if (t.selected) {
+                Field.evalTile(t, t.color);
+            }
+        }
+    }
+
     public static void evalNeighbors(Tile tile, GlobalValues.Colors color) {
         //North
         Tile n = getTile(tile.x, tile.y - 1);

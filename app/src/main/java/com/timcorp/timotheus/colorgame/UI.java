@@ -24,6 +24,7 @@ public class UI {
     public static GridLayout gridLayout;
     public static GridLayout buttonsLayout;
     public static Field field = new Field();
+    public static GlobalValues.Colors LastPressed;
     public static void UpdateColor(View view) {
         GlobalValues.moves++;
         TextView tv = (TextView)mainActivity.findViewById(R.id.moves);
@@ -32,21 +33,27 @@ public class UI {
             switch (view.getId()) {
                 case 0:
                     Field.evalNeighbors(t, GlobalValues.Colors.red);
+                    lockButton(GlobalValues.Colors.red);
                     break;
                 case 1:
                     Field.evalNeighbors(t, GlobalValues.Colors.green);
+                    lockButton(GlobalValues.Colors.green);
                     break;
                 case 2:
                     Field.evalNeighbors(t, GlobalValues.Colors.blue);
+                    lockButton(GlobalValues.Colors.blue);
                     break;
                 case 3:
                     Field.evalNeighbors(t, GlobalValues.Colors.yellow);
+                    lockButton(GlobalValues.Colors.yellow);
                     break;
                 case 4:
                     Field.evalNeighbors(t, GlobalValues.Colors.purple);
+                    lockButton(GlobalValues.Colors.purple);
                     break;
                 case 5:
                     Field.evalNeighbors(t, GlobalValues.Colors.cyan);
+                    lockButton(GlobalValues.Colors.cyan);
                     break;
             }
         }
@@ -123,6 +130,58 @@ public class UI {
             if (t.selected) {
                 Field.evalTile(t, t.color);
             }
+        }
+    }
+
+    private static void lockButton(GlobalValues.Colors color) {
+        Button b;
+
+        switch (color) {
+            case red:
+                b = (Button) mainActivity.findViewById(0);
+                enableAllButtons();
+                b.setEnabled(false);
+                LastPressed = GlobalValues.Colors.red;
+                break;
+            case green:
+                b = (Button) mainActivity.findViewById(1);
+                enableAllButtons();
+                b.setEnabled(false);
+                LastPressed = GlobalValues.Colors.green;
+                break;
+            case blue:
+                b = (Button) mainActivity.findViewById(2);
+                enableAllButtons();
+                b.setEnabled(false);
+                LastPressed = GlobalValues.Colors.blue;
+                break;
+            case yellow:
+                b = (Button) mainActivity.findViewById(3);
+                enableAllButtons();
+                b.setEnabled(false);
+                LastPressed = GlobalValues.Colors.yellow;
+                break;
+            case purple:
+                b = (Button) mainActivity.findViewById(4);
+                enableAllButtons();
+                b.setEnabled(false);
+                LastPressed = GlobalValues.Colors.purple;
+                break;
+            case cyan:
+                b = (Button) mainActivity.findViewById(5);
+                enableAllButtons();
+                b.setEnabled(false);
+                LastPressed = GlobalValues.Colors.cyan;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private static void enableAllButtons() {
+        for (int i = 0; i < GlobalValues.numberOfColors; i++) {
+            Button b = (Button) mainActivity.findViewById(i);
+            b.setEnabled(true);
         }
     }
 
