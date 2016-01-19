@@ -33,6 +33,10 @@ public class Utilities {
             GlobalValues.best = GlobalValues.moves;
         GlobalValues.moves = 0;
         Field.tiles =  new ArrayList<Tile>();
+    }
 
+    public static void clearStage() {
+        GlobalValues.moves = 0;
+        Field.tiles = new ArrayList<Tile>();
     }
 }

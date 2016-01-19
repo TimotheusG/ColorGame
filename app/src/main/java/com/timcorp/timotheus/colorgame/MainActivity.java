@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Utilities.clearStage();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         GlobalValues.numberOfColors = Integer.parseInt(getIntent().getStringExtra("NUM_COLORS"));
@@ -30,9 +32,5 @@ public class MainActivity extends AppCompatActivity {
 
         TextView tv = (TextView)findViewById(R.id.best);
         tv.setText("Best: " + GlobalValues.best);
-    }
-
-    public void colorClick(View view) {
-        UI.UpdateColor(view);
     }
 }

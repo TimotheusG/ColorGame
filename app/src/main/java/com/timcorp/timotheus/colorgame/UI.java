@@ -1,5 +1,6 @@
 package com.timcorp.timotheus.colorgame;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,7 +10,11 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -134,41 +139,42 @@ public class UI {
     }
 
     private static void lockButton(GlobalValues.Colors color) {
-        Button b;
+        ImageButton b;
 
         switch (color) {
             case red:
-                b = (Button) mainActivity.findViewById(0);
+                b = (ImageButton) mainActivity.findViewById(0);
                 enableAllButtons();
                 b.setEnabled(false);
                 LastPressed = GlobalValues.Colors.red;
                 break;
             case green:
-                b = (Button) mainActivity.findViewById(1);
+                b = (ImageButton) mainActivity.findViewById(1);
                 enableAllButtons();
                 b.setEnabled(false);
+                //b.setBackground(R.drawable.selected);
                 LastPressed = GlobalValues.Colors.green;
                 break;
             case blue:
-                b = (Button) mainActivity.findViewById(2);
+                b = (ImageButton) mainActivity.findViewById(2);
                 enableAllButtons();
                 b.setEnabled(false);
                 LastPressed = GlobalValues.Colors.blue;
                 break;
             case yellow:
-                b = (Button) mainActivity.findViewById(3);
+                b = (ImageButton) mainActivity.findViewById(3);
                 enableAllButtons();
                 b.setEnabled(false);
                 LastPressed = GlobalValues.Colors.yellow;
                 break;
             case purple:
-                b = (Button) mainActivity.findViewById(4);
+                b = (ImageButton) mainActivity.findViewById(4);
                 enableAllButtons();
                 b.setEnabled(false);
                 LastPressed = GlobalValues.Colors.purple;
                 break;
             case cyan:
-                b = (Button) mainActivity.findViewById(5);
+                b = (ImageButton) mainActivity.findViewById(5);
                 enableAllButtons();
                 b.setEnabled(false);
                 LastPressed = GlobalValues.Colors.cyan;
@@ -180,44 +186,44 @@ public class UI {
 
     private static void enableAllButtons() {
         for (int i = 0; i < GlobalValues.numberOfColors; i++) {
-            Button b = (Button) mainActivity.findViewById(i);
+            ImageButton b = (ImageButton) mainActivity.findViewById(i);
             b.setEnabled(true);
         }
     }
 
     private static void setButtons() {
         for (int i = 0; i < GlobalValues.numberOfColors; i++) {
-            Button b = new Button(mainActivity);
-            ImageView IV = new ImageView(mainActivity);
+            ImageButton b = new ImageButton(mainActivity);
+            //ImageView IV = new ImageView(mainActivity);
             switch (i) {
                 case 0:
-                    IV.setImageResource(R.drawable.red);
+                    b.setImageResource(R.drawable.red);
                     b.setId(i);
                     break;
                 case 1:
-                    IV.setImageResource(R.drawable.green);
+                    b.setImageResource(R.drawable.green);
                     b.setId(i);
                     break;
                 case 2:
-                    IV.setImageResource(R.drawable.blue);
+                    b.setImageResource(R.drawable.blue);
                     b.setId(i);
                     break;
                 case 3:
-                    IV.setImageResource(R.drawable.yellow);
+                    b.setImageResource(R.drawable.yellow);
                     b.setId(i);
                     break;
                 case 4:
-                    IV.setImageResource(R.drawable.purple);
+                    b.setImageResource(R.drawable.purple);
                     b.setId(i);
                     break;
                 case 5:
-                    IV.setImageResource(R.drawable.cyan);
+                    b.setImageResource(R.drawable.cyan);
                     b.setId(i);
                     break;
                 default:
                     break;
             }
-            b.setBackgroundDrawable(IV.getDrawable());
+            //b.setBackgroundDrawable(IV.getDrawable());
             b.setOnClickListener(new Button.OnClickListener() {
                 public void onClick(View view) {
                     UI.UpdateColor(view);

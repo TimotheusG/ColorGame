@@ -14,5 +14,5 @@ public class GlobalValues {
     public final static int column = 10;
 
     public static int moves = 0;
-    public static int best = 15;
+    public static int best = 50;
 }
